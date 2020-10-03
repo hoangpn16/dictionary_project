@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" style="-fx-background-color: CCFFFF;" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewControl">
+    <tabs>
+        <Tab text="Dịch từ">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <TextField fx:id="txtWord" layoutX="14.0" layoutY="14.0" onKeyPressed="#txtWord_onKeyPress" prefHeight="25.0" prefWidth="200.0" promptText="Nhập từ cần dịch vào đây..." />
+                        <Button layoutX="223.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="147.0" text="Phát âm" />
+                        <ListView fx:id="listWord" layoutX="14.0" layoutY="52.0" onEditStart="#addListView" prefHeight="371.0" prefWidth="200.0" AnchorPane.bottomAnchor="14.0" />
+                        <TextArea layoutX="223.0" layoutY="52.0" prefHeight="330.0" prefWidth="403.0" AnchorPane.bottomAnchor="55.0" />
+                        <Button fx:id="btn_Them" layoutX="223.0" layoutY="412.0" mnemonicParsing="false" onAction="#btn_Them_click" prefHeight="25.0" prefWidth="95.0" text="Thêm" AnchorPane.bottomAnchor="14.0" />
+                        <Button layoutX="325.0" layoutY="412.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" text="Sửa" AnchorPane.bottomAnchor="14.0" />
+                        <Button disable="true" layoutX="427.0" layoutY="412.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" text="Lưu" AnchorPane.bottomAnchor="14.0" />
+                        <Button layoutX="529.0" layoutY="412.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" text="Xóa" AnchorPane.bottomAnchor="14.0" />
+                    </children></AnchorPane>
+            </content>
+        </Tab>
+        <Tab text="Dịch văn bản">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+        </Tab>
+    </tabs>
+</TabPane>
