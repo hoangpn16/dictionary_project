@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="590.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+  <tabs>
+    <Tab text="Dịch từ">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="573.0">
+               <children>
+                  <TextField fx:id="txtWord" layoutX="14.0" layoutY="14.0" onKeyReleased="#txtWord_onKeyReleased" prefHeight="25.0" prefWidth="205.0" style="-fx-background-color: #55AAFF;" />
+                  <ListView fx:id="listWord" layoutX="14.0" layoutY="49.0" prefHeight="310.0" prefWidth="204.0" style="-fx-background-color: #55AAFF;" />
+                  <Button fx:id="btn_Them" layoutX="226.0" layoutY="332.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #0080FF;" text="Thêm" />
+                  <Button layoutX="315.0" layoutY="332.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #0080FF;" text="Sửa" />
+                  <Button layoutX="405.0" layoutY="332.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #0080FF;" text="Lưu" />
+                  <Button layoutX="495.0" layoutY="332.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: #0080FF;" text="Xóa" />
+                  <TextArea fx:id="textArea" layoutX="226.0" layoutY="49.0" prefHeight="273.0" prefWidth="350.0" style="-fx-background-color: #55AAFF;" />
+                  <Button fx:id="btn_Search" layoutX="226.0" layoutY="14.0" mnemonicParsing="false" onAction="#btn_Search_click" prefHeight="26.0" prefWidth="79.0" text="Search" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab text="Dịch văn bản">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      </content>
+    </Tab>
+  </tabs>
+</TabPane>

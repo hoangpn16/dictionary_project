@@ -1,4 +1,4 @@
-package view;
+package sample;
 
 import controller.Service;
 import entity.Word;
@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
@@ -15,13 +16,15 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
+public class Controller implements Initializable {
 
-public class ViewControl implements Initializable {
     @FXML
     public Button btn_Them = new Button();
     public ListView listWord = new ListView<>();
     public TextField txtWord = new TextField();
-    public static ViewControl instance;
+    public TextArea textArea = new TextArea();
+    public Button btn_Search = new Button();
+
     Service service = new Service();
 
     public void initialize(URL location, ResourceBundle resources) {
@@ -36,7 +39,7 @@ public class ViewControl implements Initializable {
         Connection connection = null;
         try {
             connection = DriverManager
-                    .getConnection("jdbc:mysql://127.0.0.1:3306/btl_dictionary?characterEncoding=UTF-8&autoReconnect=true&connectTimeout=30000&socketTimeout=30000&serverTimezone=UTC", "root", "phanhoang1602");
+                    .getConnection("jdbc:mysql://127.0.0.1:3306/btl_dictionary?characterEncoding=UTF-8&autoReconnect=true&connectTimeout=30000&socketTimeout=30000&serverTimezone=UTC", "root", "17072000");
             System.out.println("SQL Connection to database established!");
 
         } catch (SQLException e) {
@@ -46,30 +49,15 @@ public class ViewControl implements Initializable {
         }
     }
 
-    public void btn_Them_click() {
-        this.addListView();
-    }
-
-    public ViewControl() {
+    public void txtWord_onKeyReleased(){
 
     }
 
-    public void addListView() {
-
-    }
-
-    public void txtWord_onKeyPress() {
+    public void btn_Search_click(){
+        List<Word> wordList = service.searchWord(txtWord.getText());
         listWord.getItems().clear();
-        String text = txtWord.getText();
-        List<Word> list = service.searchWord(text);
-
-    }
-
-    public static ViewControl gI() {
-        if (ViewControl.instance == null) {
-            ViewControl.instance = new ViewControl();
+        for(Word word: wordList){
+            listWord.getItems().add(word.getInfor());
         }
-        return ViewControl.instance;
     }
-
 }
