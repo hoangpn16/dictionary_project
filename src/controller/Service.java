@@ -68,7 +68,7 @@ public class Service {
         List<Word> listWords = new ArrayList<>();
         try {
             Statement statement = con.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM `diction` WHERE `word`='" + keyWord + "'");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM `dictionary` WHERE `word`='" + keyWord + "'");
             while (resultSet.next()) {
                 Word word = new Word(resultSet.getString(2), resultSet.getString(3));
                 if (checkItemList(listWords, word)) {
@@ -80,7 +80,7 @@ public class Service {
         }
         try {
             Statement statement = con.createStatement();
-            String sql = "SELECT * FROM `diction` WHERE `word` LIKE '" + keyWord + "%' LIMIT 20";
+            String sql = "SELECT * FROM `dictionary` WHERE `word` LIKE '" + keyWord + "%' LIMIT 20";
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 Word rs = new Word(resultSet.getString(2), resultSet.getString(3));
@@ -98,7 +98,7 @@ public class Service {
         List<Word> listWordTarget = new ArrayList<>();
         try {
             Statement statement = con.createStatement();
-            String sql = "SELECT * FROM `diction` WHERE `word` LIKE '" + keyword + "%' LIMIT 20";
+            String sql = "SELECT * FROM `dictionary` WHERE `word` LIKE '" + keyword + "%' LIMIT 20";
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 Word rs = new Word(resultSet.getString(2), resultSet.getString(3));

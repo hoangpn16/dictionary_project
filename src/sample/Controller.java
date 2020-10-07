@@ -68,7 +68,7 @@ public class Controller implements Initializable {
 //        Connection connection = null;
         try {
             connection = DriverManager
-                    .getConnection("jdbc:mysql://127.0.0.1:3306/btl_dictionary?characterEncoding=UTF-8&autoReconnect=true&connectTimeout=30000&socketTimeout=30000&serverTimezone=UTC", "root", "17072000");
+                    .getConnection("jdbc:mysql://127.0.0.1:3306/btl_dictionary?characterEncoding=UTF-8&autoReconnect=true&connectTimeout=30000&socketTimeout=30000&serverTimezone=UTC", "root", "phanhoang1602");
             System.out.println("SQL Connection to database established!");
             service = new Service(connection);
 

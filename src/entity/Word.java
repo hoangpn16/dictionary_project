@@ -33,6 +33,13 @@ public class Word {
     }
 
     public String toString() {
-        return this.word_target + "\n-" + this.word_explain;
+        String[] rs = this.word_explain.split("\\-");
+        String text = rs[0];
+        for (int i = 1; i < rs.length; i++) {
+            text += "\n-" + rs[i];
+        }
+        return text;
     }
+
+
 }
