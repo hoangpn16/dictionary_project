@@ -4,30 +4,59 @@ import controller.Service;
 import entity.Word;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
+    @FXML
+    private Circle circle_imgSearch;
 
     @FXML
-    public Button btn_Them = new Button();
-    public ListView listWord = new ListView<>();
-    public TextField txtWord = new TextField();
-    public TextArea textArea = new TextArea();
-    public Button btn_Search = new Button();
+    private Circle circle_imgSound;
+
+    @FXML
+    private Circle circle_imgAdd;
+
+    @FXML
+    private Circle circle_imgCorrect;
+
+    @FXML
+    private Circle circle_imgDelete;
+
     Connection connection = null;
     Service service = null;
 
+    @FXML
+    public TextField txtWord;
+
+    @FXML
+    public ListView listWord = new ListView<>();
+
+    @FXML
+    public TextArea txtExplain;
+
+    List<Word> wordList = new ArrayList<>();
+
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
+        loadMySQL();
+        setImgButton();
+    }
+
+
+    private void loadMySQL() {
         System.out.println("-------- MySQL JDBC Connection Demo ------------");
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -50,23 +79,53 @@ public class Controller implements Initializable {
         }
     }
 
+    private void setImgButton() {
+        Image image = new Image("/sample/img_search.jpg");
+        circle_imgSearch.setFill(new ImagePattern(image));
+        image = new Image("/sample/img_loa.jpg");
+        circle_imgSound.setFill(new ImagePattern(image));
+        image = new Image("/sample/img_them.jpg");
+        circle_imgAdd.setFill(new ImagePattern(image));
+        image = new Image("/sample/img_sua.jpg");
+        circle_imgCorrect.setFill(new ImagePattern(image));
+        image = new Image("/sample/img_xoa.jpg");
+        circle_imgDelete.setFill(new ImagePattern(image));
+    }
+
     public void txtWord_onKeyReleased() {
+        actionSearch();
+    }
+
+    public void listWord_onMouseClick() {
+        if (listWord.getItems().size() == 0) {
+            return;
+        }
         List<Word> wordList = service.findByCharacter(txtWord.getText());
+        int index = listWord.getSelectionModel().getSelectedIndex();
+        txtExplain.setText(wordList.get(index).toString());
+    }
+
+    public void actionSearch() {
+        if (txtWord.getText().equals("")) {
+            listWord.getItems().clear();
+            listWord.setMaxHeight(0);
+            txtExplain.setText("");
+            return;
+        }
+        wordList.clear();
         listWord.getItems().clear();
+        wordList = service.findWord(txtWord.getText());
+        double height = wordList.size() * 24 + 1;
+        if (height > 403) {
+            height = 403;
+        }
+        listWord.setMaxHeight(height);
         for (int i = 0; i < wordList.size(); i++) {
             Word word = wordList.get(i);
             listWord.getItems().add(word.getWord_target());
+            if (i == 0 && word.getWord_target().equals(txtWord.getText())) {
+                txtExplain.setText(wordList.get(i).toString());
+            }
         }
     }
-
-    public void btn_Search_click() {
-        List<Word> wordList = service.searchWord(txtWord.getText());
-        listWord.getItems().clear();
-        for (int i = 0; i < wordList.size(); i++) {
-            Word word = wordList.get(i);
-            listWord.getItems().add(word.getWord_target());
-        }
-    }
-
-
 }

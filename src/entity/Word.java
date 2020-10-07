@@ -31,4 +31,8 @@ public class Word {
     public String getInfor() {
         return this.word_target + " | " + this.word_explain;
     }
+
+    public String toString() {
+        return this.word_target + "\n-" + this.word_explain;
+    }
 }

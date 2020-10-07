@@ -64,11 +64,41 @@ public class Service {
         }
     }
 
+    public List<Word> findWord(String keyWord) {
+        List<Word> listWords = new ArrayList<>();
+        try {
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM `diction` WHERE `word`='" + keyWord + "'");
+            while (resultSet.next()) {
+                Word word = new Word(resultSet.getString(2), resultSet.getString(3));
+                if (checkItemList(listWords, word)) {
+                    listWords.add(word);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        try {
+            Statement statement = con.createStatement();
+            String sql = "SELECT * FROM `diction` WHERE `word` LIKE '" + keyWord + "%' LIMIT 20";
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                Word rs = new Word(resultSet.getString(2), resultSet.getString(3));
+                if (checkItemList(listWords, rs)) {
+                    listWords.add(rs);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return listWords;
+    }
+
     public List<Word> findByCharacter(String keyword) {
         List<Word> listWordTarget = new ArrayList<>();
         try {
             Statement statement = con.createStatement();
-            String sql="SELECT * FROM `diction` WHERE `word` LIKE '" + keyword + "%' LIMIT 20";
+            String sql = "SELECT * FROM `diction` WHERE `word` LIKE '" + keyword + "%' LIMIT 20";
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 Word rs = new Word(resultSet.getString(2), resultSet.getString(3));
@@ -80,5 +110,18 @@ public class Service {
             System.out.println(e);
         }
         return listWordTarget;
+    }
+
+    public boolean checkItemList(List<Word> listWords, Word word) {
+        if (listWords.size() == 0) {
+            return true;
+        }
+        for (int i = 0; i < listWords.size(); i++) {
+            if (listWords.get(i).getWord_target().equals(word.getWord_target())
+                    && listWords.get(i).getWord_explain().equals(word.getWord_explain())) {
+                return false;
+            }
+        }
+        return true;
     }
 }
