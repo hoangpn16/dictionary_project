@@ -27,8 +27,8 @@ public class Test {
             System.out.println(e);
             return;
         }
-        Service service=new Service();
-        List<Word> listresult=service.searchWord("dog");
+        Service service=new Service(connection);
+        List<Word> listresult=service.findByCharacter("d");
         for (Word rs:listresult) {
             System.out.println(rs.getInfor());
         }

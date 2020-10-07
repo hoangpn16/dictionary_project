@@ -24,8 +24,8 @@ public class Controller implements Initializable {
     public TextField txtWord = new TextField();
     public TextArea textArea = new TextArea();
     public Button btn_Search = new Button();
-
-    Service service = new Service();
+    Connection connection = null;
+    Service service = null;
 
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("-------- MySQL JDBC Connection Demo ------------");
@@ -36,11 +36,12 @@ public class Controller implements Initializable {
             return;
         }
         System.out.println("MySQL JDBC Driver Registered!");
-        Connection connection = null;
+//        Connection connection = null;
         try {
             connection = DriverManager
                     .getConnection("jdbc:mysql://127.0.0.1:3306/btl_dictionary?characterEncoding=UTF-8&autoReconnect=true&connectTimeout=30000&socketTimeout=30000&serverTimezone=UTC", "root", "17072000");
             System.out.println("SQL Connection to database established!");
+            service = new Service(connection);
 
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
@@ -49,15 +50,23 @@ public class Controller implements Initializable {
         }
     }
 
-    public void txtWord_onKeyReleased(){
-
-    }
-
-    public void btn_Search_click(){
-        List<Word> wordList = service.searchWord(txtWord.getText());
+    public void txtWord_onKeyReleased() {
+        List<Word> wordList = service.findByCharacter(txtWord.getText());
         listWord.getItems().clear();
-        for(Word word: wordList){
-            listWord.getItems().add(word.getInfor());
+        for (int i = 0; i < wordList.size(); i++) {
+            Word word = wordList.get(i);
+            listWord.getItems().add(word.getWord_target());
         }
     }
+
+    public void btn_Search_click() {
+        List<Word> wordList = service.searchWord(txtWord.getText());
+        listWord.getItems().clear();
+        for (int i = 0; i < wordList.size(); i++) {
+            Word word = wordList.get(i);
+            listWord.getItems().add(word.getWord_target());
+        }
+    }
+
+
 }

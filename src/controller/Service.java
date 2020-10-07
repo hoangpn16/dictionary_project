@@ -38,20 +38,16 @@ public class Service {
         }
     }
 
-    public List<Word> searchWord(String word_target) throws NullPointerException{
+    public List<Word> searchWord(String word_target) {
         List<Word> listWords = new ArrayList<>();
         try {
             Statement statement = con.createStatement();
-            String query = "SELECT * FROM `btl_dictionary`.`dictionary` WHERE `word`= "+word_target+"";
-            System.out.println(query);
-            ResultSet resultSet = statement.executeQuery(query);
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM `diction` WHERE `word`='" + word_target + "'");
             while (resultSet.next()) {
-                Word word = new Word();
-                word.setWord_target(resultSet.getString(2));
-                word.setWord_explain(resultSet.getString(3));
-
+                Word word = new Word(resultSet.getString(2), resultSet.getString(3));
                 listWords.add(word);
             }
+
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -63,8 +59,26 @@ public class Service {
             Statement statement = con.createStatement();
             String query = "DELETE FROM `btl_dictionary`.`dictionary` WHERE `word` LIKE '%" + word_target.toLowerCase() + "%'";
             statement.executeQuery(query);
-        } catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    public List<Word> findByCharacter(String keyword) {
+        List<Word> listWordTarget = new ArrayList<>();
+        try {
+            Statement statement = con.createStatement();
+            String sql="SELECT * FROM `diction` WHERE `word` LIKE '" + keyword + "%' LIMIT 20";
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                Word rs = new Word(resultSet.getString(2), resultSet.getString(3));
+
+                listWordTarget.add(rs);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return listWordTarget;
     }
 }
