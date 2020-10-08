@@ -124,4 +124,22 @@ public class Service {
         }
         return true;
     }
+    public void fixWord(String word_target,String detail){
+        try {
+            Statement statement = con.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM `dictionary` WHERE `word`='" + word_target + "'");
+            String tmp=null;
+            while (resultSet.next()) {
+              tmp=resultSet.getString(2);
+            }
+            if (tmp == null){
+                System.out.println("Khong ton tai tu");
+            }else {
+                statement.executeQuery("UPDATE `dictionary` SET `detail` ="+detail+" WHERE `word`="+word_target+"");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
 }
