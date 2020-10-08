@@ -4,6 +4,7 @@ import controller.Service;
 import entity.Word;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -11,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
+import java.net.ServerSocket;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -35,8 +37,17 @@ public class Controller implements Initializable {
     @FXML
     private Circle circle_imgDelete;
 
-    Connection connection = null;
-    Service service = null;
+    @FXML
+    public Button btn_sound;
+
+    @FXML
+    public Button btn_add;
+
+    @FXML
+    public Button btn_Correct;
+
+    @FXML
+    public Button btn_delete;
 
     @FXML
     public TextField txtWord;
@@ -48,6 +59,8 @@ public class Controller implements Initializable {
     public TextArea txtExplain;
 
     List<Word> wordList = new ArrayList<>();
+    Connection connection = null;
+    public static Service service = null;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -67,8 +80,10 @@ public class Controller implements Initializable {
         System.out.println("MySQL JDBC Driver Registered!");
 //        Connection connection = null;
         try {
+            String url = "jdbc:mysql://127.0.0.1:3306/btl_dictionary?characterEncoding=UTF-8&autoReconnect"
+                    + "=true&connectTimeout=30000&socketTimeout=30000&serverTimezone=UTC";
             connection = DriverManager
-                    .getConnection("jdbc:mysql://127.0.0.1:3306/btl_dictionary?characterEncoding=UTF-8&autoReconnect=true&connectTimeout=30000&socketTimeout=30000&serverTimezone=UTC", "root", "phanhoang1602");
+                    .getConnection(url, "root", "17072000");
             System.out.println("SQL Connection to database established!");
             service = new Service(connection);
 
@@ -100,9 +115,9 @@ public class Controller implements Initializable {
         if (listWord.getItems().size() == 0) {
             return;
         }
-        List<Word> wordList = service.findByCharacter(txtWord.getText());
         int index = listWord.getSelectionModel().getSelectedIndex();
         txtExplain.setText(wordList.get(index).toString());
+        txtWord.setText(wordList.get(index).getWord_target().toString());
     }
 
     public void actionSearch() {
@@ -114,7 +129,7 @@ public class Controller implements Initializable {
         }
         wordList.clear();
         listWord.getItems().clear();
-        wordList = service.findWord(txtWord.getText());
+        wordList = service.findByCharacter(txtWord.getText());
         double height = wordList.size() * 24 + 1;
         if (height > 403) {
             height = 403;
@@ -127,5 +142,67 @@ public class Controller implements Initializable {
                 txtExplain.setText(wordList.get(i).toString());
             }
         }
+        if (listWord.getItems().size() == 0) {
+            txtExplain.setText("");
+        }
+    }
+
+    public void btn_sound_click() {
+        Service.gI().speech(txtWord.getText());
+    }
+
+    public void btn_add_click() {
+        if (txtWord.getText().equals("")) {
+            Service.gI().startMsgBox("Vui lòng nhập từ!", 0, 1, null);
+            txtWord.requestFocus();
+            return;
+        }
+        if (service.checkWordInData(txtWord.getText())) {
+            Service.gI().startMsgBox("Dữ liệu đã tồn tại!", 0, 1, null);
+            txtWord.requestFocus();
+            return;
+        }
+        if (txtExplain.getText().equals("")) {
+            Service.gI().startMsgBox("Vui lòng nhập đầy đủ dữ liệu của từ!", 0, 1, null);
+            txtExplain.requestFocus();
+            return;
+        }
+        Word word = new Word(txtWord.getText(), txtExplain.getText());
+        Service.gI().startMsgBox("Bạn có chắc chắn là thêm vào từ điển không?", 1, 0, word);
+    }
+
+    public void btn_Correct_click() {
+        if (txtWord.getText().equals("")) {
+            Service.gI().startMsgBox("Vui lòng nhập từ!", 0, 1, null);
+            txtWord.requestFocus();
+            return;
+        }
+        if (!service.checkWordInData(txtWord.getText())) {
+            Service.gI().startMsgBox("Dữ liệu chưa tồn tại!", 0, 1, null);
+            txtWord.requestFocus();
+            return;
+        }
+        if (txtExplain.getText().equals("")) {
+            Service.gI().startMsgBox("Vui lòng nhập đầy đủ dữ liệu của từ!", 0, 1, null);
+            txtExplain.requestFocus();
+            return;
+        }
+        Word word = new Word(txtWord.getText(), txtExplain.getText());
+        Service.gI().startMsgBox("Bạn có chắc chắn là sửa vào từ điển không?", 2, 0, word);
+    }
+
+    public void btn_delete_click() {
+        if (txtWord.getText().equals("")) {
+            Service.gI().startMsgBox("Vui lòng nhập từ!", 0, 1, null);
+            txtWord.requestFocus();
+            return;
+        }
+        if (!service.checkWordInData(txtWord.getText())) {
+            Service.gI().startMsgBox("Dữ liệu chưa tồn tại!", 0, 1, null);
+            txtWord.requestFocus();
+            return;
+        }
+        Word word = new Word(txtWord.getText(), txtExplain.getText());
+        Service.gI().startMsgBox("Bạn có chắc chắn là xóa ra khỏi từ điển không?", 3, 0, word);
     }
 }

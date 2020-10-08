@@ -12,35 +12,31 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="638.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <children>
-        <AnchorPane layoutX="-6.0" prefHeight="57.0" prefWidth="638.0" style="-fx-background-color: #C6E2FF;">
+        <AnchorPane layoutX="-6.0" prefHeight="58.0" prefWidth="644.0" style="-fx-background-color: #C6E2FF;">
             <children>
-                <TextField fx:id="txtWord" layoutX="14.0" layoutY="14.0" onAction="#actionSearch" onKeyReleased="#txtWord_onKeyReleased" prefHeight="30.0" prefWidth="204.0" promptText="Nhập từ của bạn..." style="-fx-background-radius: 20;">
+                <TextField fx:id="txtWord" layoutX="40.0" layoutY="14.0" onAction="#actionSearch" onKeyReleased="#txtWord_onKeyReleased" prefHeight="30.0" prefWidth="218.0" promptText="Nhập từ của bạn..." style="-fx-background-radius: 20;">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </TextField>
-                <Button graphicTextGap="6.0" layoutX="225.0" layoutY="14.0" mnemonicParsing="false" onAction="#actionSearch" prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 20;" text="Search">
-                    <graphic>
-                        <Circle fx:id="circle_imgSearch" fill="#1f93ff" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                    </graphic>
-                </Button>
-                <Button graphicTextGap="6.0" layoutX="337.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="71.0" style="-fx-background-radius: 20;" text="US">
+                <Button fx:id="btn_sound" graphicTextGap="6.0" layoutX="270.0" layoutY="14.0" mnemonicParsing="false" onAction="#btn_sound_click" prefHeight="30.0" prefWidth="71.0" style="-fx-background-radius: 20;" text="US">
                     <graphic>
                         <Circle fx:id="circle_imgSound" fill="DODGERBLUE" radius="10.0" stroke="#00000006" strokeType="INSIDE" />
                     </graphic>
                 </Button>
+            <Circle fx:id="circle_imgSearch" fill="#1f93ff" layoutX="24.0" layoutY="29.0" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" />
             </children>
         </AnchorPane>
         <AnchorPane layoutY="57.0" prefHeight="403.0" prefWidth="219.0" style="-fx-background-color: #C6E2FF;">
             <children>
-                <ListView fx:id="listWord" onMouseClicked="#listWord_onMouseClick" prefHeight="403.0" prefWidth="219.0" style="-fx-background-color: #C6E2FF;" />
+                <ListView fx:id="listWord" onMouseClicked="#listWord_onMouseClick" prefHeight="403.0" prefWidth="257.0" style="-fx-background-color: #C6E2FF;" />
             </children>
         </AnchorPane>
-        <AnchorPane layoutX="219.0" layoutY="57.0" prefHeight="403.0" prefWidth="419.0">
+        <AnchorPane layoutX="256.0" layoutY="57.0" prefHeight="403.0" prefWidth="380.0">
             <children>
-                <HBox layoutY="373.0" prefHeight="30.0" prefWidth="419.0">
+                <HBox layoutY="373.0" prefHeight="30.0" prefWidth="382.0">
                     <children>
-                        <Button graphicTextGap="6.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="140.0" style="-fx-background-radius: 0;" text="Add">
+                        <Button fx:id="btn_add" graphicTextGap="6.0" mnemonicParsing="false" onAction="#btn_add_click" prefHeight="30.0" prefWidth="140.0" style="-fx-background-radius: 0;" text="Add">
                             <HBox.margin>
                                 <Insets />
                             </HBox.margin>
@@ -48,7 +44,7 @@
                                 <Circle fx:id="circle_imgAdd" fill="#1f93ff" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                             </graphic>
                         </Button>
-                        <Button graphicTextGap="6.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="140.0" style="-fx-background-radius: 0;" text="Correct">
+                        <Button fx:id="btn_Correct" graphicTextGap="6.0" mnemonicParsing="false" onAction="#btn_Correct_click" prefHeight="30.0" prefWidth="140.0" style="-fx-background-radius: 0;" text="Correct">
                             <HBox.margin>
                                 <Insets />
                             </HBox.margin>
@@ -56,7 +52,7 @@
                                 <Circle fx:id="circle_imgCorrect" fill="#1f93ff" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                             </graphic>
                         </Button>
-                        <Button graphicTextGap="6.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="140.0" style="-fx-background-radius: 0;" text="Delete">
+                        <Button fx:id="btn_delete" graphicTextGap="6.0" mnemonicParsing="false" onAction="#btn_delete_click" prefHeight="30.0" prefWidth="140.0" style="-fx-background-radius: 0;" text="Delete">
                             <HBox.margin>
                                 <Insets />
                             </HBox.margin>
@@ -66,7 +62,7 @@
                         </Button>
                     </children>
                 </HBox>
-                <TextArea fx:id="txtExplain" prefHeight="373.0" prefWidth="419.0" />
+                <TextArea fx:id="txtExplain" prefHeight="374.0" prefWidth="382.0" />
             </children>
         </AnchorPane>
     </children>

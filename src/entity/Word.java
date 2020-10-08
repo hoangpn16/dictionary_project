@@ -35,11 +35,15 @@ public class Word {
     public String toString() {
         String[] rs = this.word_explain.split("\\-");
         String text = rs[0];
-        for (int i = 1; i < rs.length; i++) {
+        int index = 1;
+        if(this.getWord_target().contains("-")){
+            text += "-" + rs[1];
+            index = 2;
+        }
+        for (int i = index; i < rs.length; i++) {
             text += "\n-" + rs[i];
         }
         return text;
     }
-
 
 }
