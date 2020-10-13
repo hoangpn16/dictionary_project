@@ -10,9 +10,9 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="638.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="638.0" xmlns="http://javafx.com/javafx/8.0.221" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Controller">
     <children>
-        <AnchorPane layoutX="-6.0" prefHeight="58.0" prefWidth="644.0" style="-fx-background-color: #C6E2FF;">
+        <AnchorPane layoutX="-6.0" prefHeight="58.0" prefWidth="644.0">
             <children>
                 <TextField fx:id="txtWord" layoutX="40.0" layoutY="14.0" onAction="#actionSearch" onKeyReleased="#txtWord_onKeyReleased" prefHeight="30.0" prefWidth="218.0" promptText="Nhập từ của bạn..." style="-fx-background-radius: 20;">
                     <font>
@@ -24,17 +24,12 @@
                         <Circle fx:id="circle_imgSound" fill="DODGERBLUE" radius="10.0" stroke="#00000006" strokeType="INSIDE" />
                     </graphic>
                 </Button>
-            <Circle fx:id="circle_imgSearch" fill="#1f93ff" layoutX="24.0" layoutY="29.0" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                <Circle fx:id="circle_imgSearch" fill="#1f93ff" layoutX="24.0" layoutY="29.0" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" />
             </children>
         </AnchorPane>
-        <AnchorPane layoutY="57.0" prefHeight="403.0" prefWidth="219.0" style="-fx-background-color: #C6E2FF;">
+        <AnchorPane layoutX="256.0" layoutY="57.0" prefHeight="371.0" prefWidth="382.0">
             <children>
-                <ListView fx:id="listWord" onMouseClicked="#listWord_onMouseClick" prefHeight="403.0" prefWidth="257.0" style="-fx-background-color: #C6E2FF;" />
-            </children>
-        </AnchorPane>
-        <AnchorPane layoutX="256.0" layoutY="57.0" prefHeight="403.0" prefWidth="380.0">
-            <children>
-                <HBox layoutY="373.0" prefHeight="30.0" prefWidth="382.0">
+                <HBox layoutY="337.0" prefHeight="30.0" prefWidth="382.0">
                     <children>
                         <Button fx:id="btn_add" graphicTextGap="6.0" mnemonicParsing="false" onAction="#btn_add_click" prefHeight="30.0" prefWidth="140.0" style="-fx-background-radius: 0;" text="Add">
                             <HBox.margin>
@@ -62,8 +57,9 @@
                         </Button>
                     </children>
                 </HBox>
-                <TextArea fx:id="txtExplain" prefHeight="374.0" prefWidth="382.0" />
+                <TextArea fx:id="txtExplain" prefHeight="336.0" prefWidth="382.0" />
             </children>
         </AnchorPane>
+        <ListView fx:id="listWord" layoutY="57.0" onMouseClicked="#listWord_onMouseClick" prefHeight="368.0" prefWidth="257.0" />
     </children>
 </AnchorPane>

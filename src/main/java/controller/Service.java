@@ -6,7 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-import sample.Controller;
+import view.Controller;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -36,7 +36,7 @@ public class Service {
     public boolean checkWordInData(String word_target) {
         try {
             Statement statement = con.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM `diction` WHERE `word`='" + word_target + "'");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM `dictionary` WHERE `word`='" + word_target + "'");
             if (resultSet.next()) {
                 return true;
             }
@@ -66,7 +66,7 @@ public class Service {
         List<Word> listWordTarget = new ArrayList<>();
         try {
             Statement statement = con.createStatement();
-            String sql = "SELECT * FROM `diction` WHERE `word` LIKE '" + keyword + "%' LIMIT 20";
+            String sql = "SELECT * FROM `dictionary` WHERE `word` LIKE '" + keyword + "%' LIMIT 20";
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 Word rs = new Word(resultSet.getString(2), resultSet.getString(3));
@@ -149,7 +149,7 @@ public class Service {
     public void insertWord(String word_target, String word_explain) {
         try {
             Statement statement = con.createStatement();
-            String sql = "INSERT INTO `diction`(`word`,`detail`) VALUES ('" + word_target + "','" + word_explain + "') ";
+            String sql = "INSERT INTO `dictionary`(`word`,`detail`) VALUES ('" + word_target + "','" + word_explain + "') ";
             statement.execute(sql);
             Service.gI().startMsgBox("Đã thêm vào từ điển!", 0, 1, null);
         } catch (Exception e) {
@@ -172,7 +172,7 @@ public class Service {
     public void fixWord(String word_target, String detail) {
         try {
             Statement statement = con.createStatement();
-            statement.executeUpdate("UPDATE `diction` SET `detail` ='" + detail + "' WHERE `word`='" + word_target + "'");
+            statement.executeUpdate("UPDATE `dictionary` SET `detail` ='" + detail + "' WHERE `word`='" + word_target + "'");
             Service.gI().startMsgBox("Đã sửa vào từ điển!", 0, 1, null);
         } catch (Exception e) {
             System.out.println(e);

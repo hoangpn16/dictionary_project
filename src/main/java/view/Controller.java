@@ -1,4 +1,4 @@
-package sample;
+package view;
 
 import controller.Service;
 import entity.Word;
@@ -12,7 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
-import java.net.ServerSocket;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -61,6 +60,7 @@ public class Controller implements Initializable {
     List<Word> wordList = new ArrayList<>();
     Connection connection = null;
     public static Service service = null;
+    private int numSearch;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -83,7 +83,7 @@ public class Controller implements Initializable {
             String url = "jdbc:mysql://127.0.0.1:3306/btl_dictionary?characterEncoding=UTF-8&autoReconnect"
                     + "=true&connectTimeout=30000&socketTimeout=30000&serverTimezone=UTC";
             connection = DriverManager
-                    .getConnection(url, "root", "17072000");
+                    .getConnection(url, "root", "phanhoang1602");
             System.out.println("SQL Connection to database established!");
             service = new Service(connection);
 
@@ -94,21 +94,44 @@ public class Controller implements Initializable {
         }
     }
 
+    class delaySearch extends Thread{
+        @Override
+        public void run() {
+            int num = numSearch;
+            for(int i =0; i < 500; i ++){
+                if(num != numSearch){
+                    return;
+                }
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(num != numSearch){
+                return;
+            }
+            actionSearch();
+        }
+    }
+
+
     private void setImgButton() {
-        Image image = new Image("/sample/img_search.jpg");
+        Image image = new Image("/images/img_search.jpg");
         circle_imgSearch.setFill(new ImagePattern(image));
-        image = new Image("/sample/img_loa.jpg");
+        image = new Image("/images/img_loa.jpg");
         circle_imgSound.setFill(new ImagePattern(image));
-        image = new Image("/sample/img_them.jpg");
+        image = new Image("/images/img_them.jpg");
         circle_imgAdd.setFill(new ImagePattern(image));
-        image = new Image("/sample/img_sua.jpg");
+        image = new Image("/images/img_sua.jpg");
         circle_imgCorrect.setFill(new ImagePattern(image));
-        image = new Image("/sample/img_xoa.jpg");
+        image = new Image("/images/img_xoa.jpg");
         circle_imgDelete.setFill(new ImagePattern(image));
     }
 
     public void txtWord_onKeyReleased() {
-        actionSearch();
+        this.numSearch++;
+        new delaySearch().start();
     }
 
     public void listWord_onMouseClick() {
