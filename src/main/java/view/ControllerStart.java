@@ -6,15 +6,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import sun.awt.windows.ThemeReader;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -42,7 +38,7 @@ public class ControllerStart implements Initializable {
 			try {
 				for (int i = 1; i <= 100; i++) {
 					progressLoad.setProgress(0.01 * i);
-					Thread.sleep(20);
+					Thread.sleep(12);
 				}
 				Thread.sleep(100);
 
@@ -66,7 +62,7 @@ public class ControllerStart implements Initializable {
 				});
 
 			} catch (Exception e) {
-				System.out.println(e);
+				System.out.println(""+e);
 			}
 		}
 	}

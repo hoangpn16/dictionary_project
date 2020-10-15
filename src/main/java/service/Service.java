@@ -47,7 +47,7 @@ public class Service {
 				return true;
 			}
 		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println("" + e);
 		}
 		return false;
 	}
@@ -69,7 +69,7 @@ public class Service {
 			}
 
 		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println("" + e);
 		}
 		return listWords;
 	}
@@ -95,7 +95,7 @@ public class Service {
 			}
 
 		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println("" + e);
 		}
 		return listWordTarget;
 	}
@@ -205,7 +205,7 @@ public class Service {
 			statement.execute(sql);
 			Service.gI().startMsgBox("Đã thêm vào từ điển!", 0, 1, null);
 		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println("" + e);
 		}
 	}
 
@@ -222,7 +222,7 @@ public class Service {
 			statement.executeUpdate(query);
 			Service.gI().startMsgBox("Đã xóa khỏi từ điển!", 0, 1, null);
 		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println("" + e);
 		}
 	}
 
@@ -238,7 +238,7 @@ public class Service {
 			statement.executeUpdate("UPDATE `dictionary` SET `detail` ='" + detail + "' WHERE `word`='" + word_target + "'");
 			Service.gI().startMsgBox("Đã sửa vào từ điển!", 0, 1, null);
 		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println("" + e);
 		}
 	}
 }
